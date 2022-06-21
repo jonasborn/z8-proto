@@ -1,5 +1,9 @@
 syntax = "proto3";
 
+option java_package = "z8.proto";
+option java_outer_classname = "Z8ProtoAlpha";
+option java_multiple_files = true;
+
 message ServerMessage {
     string secret = 1;
     string target = 2;
