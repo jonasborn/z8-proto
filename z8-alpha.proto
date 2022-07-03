@@ -121,7 +121,7 @@ message DisplayBufferCleared {
 }
 
 message PrintOnDisplay {
-    enum animation {
+    enum Animation {
         NONE = 0;
         SINGLE_LINE = 1;
         ALL_LINES = 2;
@@ -178,7 +178,7 @@ message SecretChange {
 
 message LogMessage {
     string source = 1;
-    enum level {
+    enum Level {
         DEBUG = 0;
         INFO = 1;
         WARN = 2;
