@@ -52,7 +52,7 @@ message ClientMessage {
         TokenLoseEvent token_lose_event = 15;
         DesFireAuthentication des_fire_authentication = 16;
         SecretChange secret_change = 17;
-        LogMessage = 18;
+        LogMessage log_message = 18;
     }
 }
 
