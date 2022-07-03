@@ -182,7 +182,7 @@ message LogMessage {
         DEBUG = 0;
         INFO = 1;
         WARN = 2;
-        ERROR = 2;
+        ERROR = 3;
     }
     string message = 3;
 }
