@@ -126,7 +126,8 @@ message PrintOnDisplay {
         SINGLE_LINE = 1;
         ALL_LINES = 2;
     }
-    int32 line = 3;
+    Animation = 1;
+    int32 line = 2;
 }
 
 message PrintedOnDisply {
@@ -184,5 +185,6 @@ message LogMessage {
         WARN = 2;
         ERROR = 3;
     }
+    Level level = 2;
     string message = 3;
 }
