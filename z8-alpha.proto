@@ -52,6 +52,7 @@ message ClientMessage {
         TokenLoseEvent token_lose_event = 15;
         DesFireAuthentication des_fire_authentication = 16;
         SecretChange secret_change = 17;
+        LogMessage = 18;
     }
 }
 
@@ -173,4 +174,15 @@ message DesFireAuthentication {
 
 message SecretChange {
     string new_secret = 1;
+}
+
+message LogMessage {
+    string source = 1;
+    enum Animation {
+        DEBUG = 0;
+        INFO = 1;
+        WARN = 2;
+        ERROR = 2;
+    }
+    string message = 3;
 }
