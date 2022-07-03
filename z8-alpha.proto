@@ -126,7 +126,7 @@ message PrintOnDisplay {
         SINGLE_LINE = 1;
         ALL_LINES = 2;
     }
-    Animation = 1;
+    Animation animation = 1;
     int32 line = 2;
 }
 
