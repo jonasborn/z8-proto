@@ -166,7 +166,7 @@ message TokenLoseEvent {
 message DesFireAuthentication {
     string token = 1;
     int32 stage = 2;
-    bytes data = 3;
+    bytes data = 3 [(nanopb).max_size = 16, (nanopb).fixed_length = true];
 }
 
 message SecretChange {
