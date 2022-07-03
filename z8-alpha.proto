@@ -23,6 +23,8 @@ message ServerMessage {
         ClearDisplay clear_display = 12;
 
         TokenWriteEvent token_write_event = 13;
+        
+        DesFireAuthentication des_fire_authentication = 14;
 
     }
 }
