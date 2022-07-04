@@ -152,7 +152,7 @@ message TokenFoundEvent {
 
 message TokenReadEvent {
     string token = 1;
-    int page = 2;
+    int64 page = 2;
     bytes data = 3;
 }
 
