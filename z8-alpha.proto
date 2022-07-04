@@ -130,6 +130,11 @@ message PrintOnDisplay {
     int32 line = 2;
 }
 
+message PrintedOnDisplay {
+
+}
+
+
 message ClearDisplay {
 
 }
