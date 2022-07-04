@@ -143,17 +143,17 @@ message DisplayCleared {
 message TokenFoundEvent {
     string token = 1;
     enum TokenType {
-        UNKNOWN,
-        ULTRALIGHTC,
-        CLASSIC
+        UNKNOWN = 1;
+        ULTRALIGHTC = 2;
+        CLASSIC = 3;
     }
     TokenType type = 2;
 }
 
 message TokenReadEvent {
     string token = 1;
-    int page;
-    bytes data;
+    int page = 2;
+    bytes data = 3;
 }
 
 message TokenWriteEvent {
