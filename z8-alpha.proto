@@ -148,9 +148,9 @@ message DisplayCleared {
 message TokenFoundEvent {
     string token = 1;
     enum TokenType {
-        UNKNOWN = 1;
-        ULTRALIGHTC = 2;
-        CLASSIC = 3;
+        UNKNOWN = 0;
+        ULTRALIGHTC = 1;
+        CLASSIC = 2;
     }
     TokenType type = 2;
 }
