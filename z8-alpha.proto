@@ -5,7 +5,7 @@ option java_outer_classname = "Z8ProtoAlpha";
 option java_multiple_files = true;
 
 message ServerMessage {
-    string secret = 1;
+    string bearer = 1;
     string target = 2;
     oneof body {
         WelcomeMessage welcome_message = 3;
@@ -24,13 +24,13 @@ message ServerMessage {
 
         TokenWriteEvent token_write_event = 13;
         
-        DesFireAuthentication des_fire_authentication = 14;
+        UltralightCAuthentication ultralight_c_authentication = 14;
 
     }
 }
 
 message ClientMessage {
-    string secret = 1;
+    string bearer = 1;
     string source = 2;
     oneof body {
         WelcomeMessage welcome_message = 3;
@@ -50,7 +50,7 @@ message ClientMessage {
         TokenReadEvent token_read_event = 13;
         TokenWrittenEvent token_written_event = 14;
         TokenLoseEvent token_lose_event = 15;
-        DesFireAuthentication des_fire_authentication = 16;
+        UltralightCAuthentication ultralight_c_authentication = 16;
         SecretChange secret_change = 17;
         LogMessage log_message = 18;
     }
@@ -130,10 +130,6 @@ message PrintOnDisplay {
     int32 line = 2;
 }
 
-message PrintedOnDisply {
-
-}
-
 message ClearDisplay {
 
 }
@@ -144,14 +140,26 @@ message DisplayCleared {
 
 //TOKEN
 
+message TokenFoundEvent {
+    string token = 1;
+    enum TokenType {
+        UNKNOWN,
+        ULTRALIGHTC,
+        CLASSIC
+    }
+    TokenType type = 2;
+}
+
 message TokenReadEvent {
     string token = 1;
+    int page;
+    bytes data;
 }
 
 message TokenWriteEvent {
     int64 id = 1;
     string token = 2;
-    int32 block = 3;
+    int32 page = 3;
     bytes data = 4;
 }
 
@@ -160,21 +168,22 @@ message TokenWrittenEvent {
     string token = 2;
 }
 
-
 message TokenLoseEvent {
     string token = 1;
 }
 
 //SPECIAL
 
-message DesFireAuthentication {
+message UltralightCAuthentication {
     string token = 1;
     int32 stage = 2;
     bytes data = 3;
+    bytes randA = 4;
+    bytes auth2 = 5;
 }
 
 message SecretChange {
-    string new_secret = 1;
+    string secret = 1;
 }
 
 message LogMessage {
