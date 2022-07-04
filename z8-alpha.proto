@@ -44,7 +44,7 @@ message ClientMessage {
 
         StoredInDisplayBuffer stored_in_display_buffer = 9;
         DisplayBufferCleared display_buffer_cleared = 10;
-        PrintedOnDisply printed_on_display = 11;
+        PrintedOnDisplay printed_on_display = 11;
         DisplayCleared display_cleared = 12;
 
         TokenReadEvent token_read_event = 13;
