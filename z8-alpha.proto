@@ -54,8 +54,9 @@ message ClientMessage {
         TokenWrittenEvent token_written_event = 15;
         TokenLoseEvent token_lose_event = 16;
         UltralightCAuthentication ultralight_c_authentication = 17;
-        SecretChangedEvent secret_changed_event = 18;
-        LogMessage log_message = 19;
+        TokenAuthenticatedEvent token_authenticated_event = 18;
+        SecretChangedEvent secret_changed_event = 19;
+        LogMessage log_message = 20;
         
     }
 }
