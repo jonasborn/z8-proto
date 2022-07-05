@@ -46,13 +46,14 @@ message ClientMessage {
         DisplayBufferCleared display_buffer_cleared = 10;
         PrintedOnDisplay printed_on_display = 11;
         DisplayCleared display_cleared = 12;
-
-        TokenReadEvent token_read_event = 13;
-        TokenWrittenEvent token_written_event = 14;
-        TokenLoseEvent token_lose_event = 15;
-        UltralightCAuthentication ultralight_c_authentication = 16;
-        SecretChange secret_change = 17;
-        LogMessage log_message = 18;
+        
+        TokenFoundEvent token_found_event = 13;
+        TokenReadEvent token_read_event = 14;
+        TokenWrittenEvent token_written_event = 15;
+        TokenLoseEvent token_lose_event = 16;
+        UltralightCAuthentication ultralight_c_authentication = 17;
+        SecretChange secret_change = 18;
+        LogMessage log_message = 19;
     }
 }
 
