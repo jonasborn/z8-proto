@@ -25,7 +25,9 @@ message ServerMessage {
         TokenWriteEvent token_write_event = 13;
         
         UltralightCAuthentication ultralight_c_authentication = 14;
+        TokenAuthenticatedEvent token_authenticated_event = 15;
 
+        SecretChange secret_change = 16;
     }
 }
 
@@ -52,8 +54,9 @@ message ClientMessage {
         TokenWrittenEvent token_written_event = 15;
         TokenLoseEvent token_lose_event = 16;
         UltralightCAuthentication ultralight_c_authentication = 17;
-        SecretChange secret_change = 18;
+        SecretChangedEvent secret_changed_event = 18;
         LogMessage log_message = 19;
+        
     }
 }
 
@@ -160,22 +163,29 @@ message TokenReadEvent {
     string token = 1;
     int64 page = 2;
     bytes data = 3;
+    string barer = 4;
 }
 
 message TokenWriteEvent {
-    int64 id = 1;
-    string token = 2;
-    int32 page = 3;
-    bytes data = 4;
+    string token = 1;
+    int32 page = 2;
+    bytes data = 3;
+    string barer = 4;
 }
 
 message TokenWrittenEvent {
-    int64 id = 1;
-    string token = 2;
+    string token = 1;
+    string barer = 2;
 }
 
 message TokenLoseEvent {
     string token = 1;
+    string barer = 2;
+}
+
+message TokenAuthenticatedEvent {
+    string token = 1;
+    string barer = 2;
 }
 
 //SPECIAL
@@ -190,6 +200,10 @@ message UltralightCAuthentication {
 
 message SecretChange {
     string secret = 1;
+}
+
+message SecretChangedEvent {
+    
 }
 
 message LogMessage {
