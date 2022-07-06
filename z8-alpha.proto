@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "nanopb.proto";
+
 option java_package = "z8.proto.alpha";
 option java_outer_classname = "Z8ProtoAlpha";
 option java_multiple_files = true;
