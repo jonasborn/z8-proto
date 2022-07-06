@@ -5,6 +5,7 @@ option java_outer_classname = "Z8ProtoAlpha";
 option java_multiple_files = true;
 
 message ServerMessage {
+    option (nanopb_msgopt).no_unions = true;
     string bearer = 1;
     string target = 2;
     oneof body {
@@ -32,6 +33,7 @@ message ServerMessage {
 }
 
 message ClientMessage {
+    option (nanopb_msgopt).no_unions = true;
     string bearer = 1;
     string source = 2;
     oneof body {
