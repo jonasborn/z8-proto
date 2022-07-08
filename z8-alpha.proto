@@ -198,9 +198,9 @@ message TokenAuthenticatedEvent {
 message UltralightCAuthentication {
     string token = 1 [(nanopb).max_length = 40];
     int32 stage = 2;
-    bytes data = 3 [(nanopb).max_size = 17];
-    bytes randA = 4 [(nanopb).max_size = 16];
-    bytes auth2 = 5 [(nanopb).max_size = 17];
+    bytes data = 3 [(nanopb).max_size = 40];
+    bytes randA = 4 [(nanopb).max_size = 40];
+    bytes auth2 = 5 [(nanopb).max_size = 40];
 }
 
 message SecretChange {
