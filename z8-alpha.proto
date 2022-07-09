@@ -9,31 +9,31 @@ option java_multiple_files = true;
 message ServerMessage {
     option (nanopb_msgopt).no_unions = true;
     string id = 1 [(nanopb).max_length = 40];
-    string barer = 1 [(nanopb).max_length = 40];
-    string target = 2 [(nanopb).max_length = 40];
+    string barer = 2 [(nanopb).max_length = 40];
+    string target = 3 [(nanopb).max_length = 40];
     oneof body {
-        WelcomeMessage welcome_message = 3;
-        ShutdownMessage shutdown_message = 4;
-        PingMessage ping_message = 5;
+        WelcomeMessage welcome_message = 4;
+        ShutdownMessage shutdown_message = 5;
+        PingMessage ping_message = 6;
 
-        TimeResponse time_response = 6;
+        TimeResponse time_response = 7;
 
-        PlayMelody play_melody = 7;
-        StopMelody stop_melody = 8;
+        PlayMelody play_melody = 8;
+        StopMelody stop_melody = 9;
 
-        StoreInDisplayBuffer store_in_display_buffer = 9;
-        ClearDisplayBuffer clear_display_buffer = 10;
-        PrintOnDisplay print_on_display = 11;
-        ClearDisplay clear_display = 12;
+        StoreInDisplayBuffer store_in_display_buffer = 10;
+        ClearDisplayBuffer clear_display_buffer = 11;
+        PrintOnDisplay print_on_display = 12;
+        ClearDisplay clear_display = 13;
         
-        TokenAwait token_await = 13;
-        TokenReadEvent token_read_event = 14;
-        TokenWriteEvent token_write_event = 15;
+        TokenAwait token_await = 14;
+        TokenReadEvent token_read_event = 15;
+        TokenWriteEvent token_write_event = 16;
         
-        UltralightCAuthentication ultralight_c_authentication = 16;
-        TokenAuthenticatedEvent token_authenticated_event = 17;
+        UltralightCAuthentication ultralight_c_authentication = 17;
+        TokenAuthenticatedEvent token_authenticated_event = 18;
 
-        SecretChange secret_change = 18;
+        SecretChange secret_change = 19;
     }
 }
 
