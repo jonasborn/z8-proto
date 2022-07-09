@@ -8,8 +8,8 @@ option java_multiple_files = true;
 
 message ServerMessage {
     option (nanopb_msgopt).no_unions = true;
-    string id = 1;
-    string target = 2;
+    string id = 1 [(nanopb).max_length = 40];
+    string target = 2 [(nanopb).max_length = 40];
     oneof body {
         WelcomeMessage welcome_message = 3;
         ShutdownMessage shutdown_message = 4;
@@ -38,8 +38,8 @@ message ServerMessage {
 
 message ClientMessage {
     option (nanopb_msgopt).no_unions = true;
-    string id = 1;
-    string source = 2;
+    string id = 1 [(nanopb).max_length = 40];
+    string source = 2 [(nanopb).max_length = 40];
     oneof body {
         WelcomeMessage welcome_message = 3;
         ShutdownMessage shutdown_message = 4;
@@ -161,7 +161,7 @@ message TokenAwait {
 }
 
 message TokenFoundEvent {
-    string token = 1;
+    string token = 1 [(nanopb).max_length = 40];
     enum TokenType {
         UNKNOWN = 0;
         ULTRALIGHTC = 1;
@@ -171,27 +171,27 @@ message TokenFoundEvent {
 }
 
 message TokenReadEvent {
-    string token = 1;
+    string token = 1 [(nanopb).max_length = 40];
     int64 page = 2;
     bytes data = 3;
 }
 
 message TokenWriteEvent {
-    string token = 1;
+    string token = 1 [(nanopb).max_length = 40];
     int32 page = 2;
     bytes data = 3;
 }
 
 message TokenWrittenEvent {
-    string token = 1;
+    string token = 1 [(nanopb).max_length = 40];
 }
 
 message TokenLoseEvent {
-    string token = 1;
+    string token = 1 [(nanopb).max_length = 40];
 }
 
 message TokenAuthenticatedEvent {
-    string token = 1;
+    string token = 1 [(nanopb).max_length = 40];
 }
 
 //SPECIAL
@@ -205,7 +205,7 @@ message UltralightCAuthentication {
 }
 
 message SecretChange {
-    string secret = 1;
+    string secret = 1 [(nanopb).max_length = 40];
 }
 
 message SecretChangedEvent {
@@ -213,7 +213,7 @@ message SecretChangedEvent {
 }
 
 message LogMessage {
-    string source = 1;
+    string source = 1 [(nanopb).max_length = 40];
     enum Level {
         DEBUG = 0;
         INFO = 1;
@@ -221,5 +221,5 @@ message LogMessage {
         ERROR = 3;
     }
     Level level = 2;
-    string message = 3;
+    string message = 3 [(nanopb).max_length = 40];
 }
