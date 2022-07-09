@@ -9,6 +9,7 @@ option java_multiple_files = true;
 message ServerMessage {
     option (nanopb_msgopt).no_unions = true;
     string id = 1 [(nanopb).max_length = 40];
+    string barer = 1 [(nanopb).max_length = 40];
     string target = 2 [(nanopb).max_length = 40];
     oneof body {
         WelcomeMessage welcome_message = 3;
@@ -39,6 +40,7 @@ message ServerMessage {
 message ClientMessage {
     option (nanopb_msgopt).no_unions = true;
     string id = 1 [(nanopb).max_length = 40];
+    string barer = 1 [(nanopb).max_length = 40];
     string source = 2 [(nanopb).max_length = 40];
     oneof body {
         WelcomeMessage welcome_message = 3;
