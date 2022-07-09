@@ -8,9 +8,9 @@ option java_multiple_files = true;
 
 message ServerMessage {
     option (nanopb_msgopt).no_unions = true;
-    string id = 1 [(nanopb).max_length = 40];
-    string barer = 2 [(nanopb).max_length = 40];
-    string target = 3 [(nanopb).max_length = 40];
+    string id = 1 [(nanopb).max_length = 5];
+    string barer = 2 [(nanopb).max_length = 32];
+    string target = 3 [(nanopb).max_length = 5];
     oneof body {
         WelcomeMessage welcome_message = 4;
         ShutdownMessage shutdown_message = 5;
@@ -39,9 +39,9 @@ message ServerMessage {
 
 message ClientMessage {
     option (nanopb_msgopt).no_unions = true;
-    string id = 1 [(nanopb).max_length = 40];
-    string barer = 2 [(nanopb).max_length = 40];
-    string source = 3 [(nanopb).max_length = 40];
+    string id = 1 [(nanopb).max_length = 5];
+    string barer = 2 [(nanopb).max_length = 32];
+    string source = 3 [(nanopb).max_length = 5];
     oneof body {
         WelcomeMessage welcome_message = 4;
         ShutdownMessage shutdown_message = 5;
@@ -163,7 +163,7 @@ message TokenAwait {
 }
 
 message TokenFoundEvent {
-    string token = 1 [(nanopb).max_length = 40];
+    string token = 1 [(nanopb).max_length = 14];
     enum TokenType {
         UNKNOWN = 0;
         ULTRALIGHTC = 1;
@@ -173,33 +173,33 @@ message TokenFoundEvent {
 }
 
 message TokenReadEvent {
-    string token = 1 [(nanopb).max_length = 40];
+    string token = 1 [(nanopb).max_length = 14];
     int64 page = 2;
     bytes data = 3;
 }
 
 message TokenWriteEvent {
-    string token = 1 [(nanopb).max_length = 40];
+    string token = 1 [(nanopb).max_length = 14];
     int32 page = 2;
     bytes data = 3;
 }
 
 message TokenWrittenEvent {
-    string token = 1 [(nanopb).max_length = 40];
+    string token = 1 [(nanopb).max_length = 14];
 }
 
 message TokenLoseEvent {
-    string token = 1 [(nanopb).max_length = 40];
+    string token = 1 [(nanopb).max_length = 14];
 }
 
 message TokenAuthenticatedEvent {
-    string token = 1 [(nanopb).max_length = 40];
+    string token = 1 [(nanopb).max_length = 14];
 }
 
 //SPECIAL
 
 message UltralightCAuthentication {
-    string token = 1 [(nanopb).max_length = 40];
+    string token = 1 [(nanopb).max_length = 14];
     int32 next_stage = 2;
     bytes data = 3 [(nanopb).max_size = 40];
     bytes randA = 4 [(nanopb).max_size = 40];
@@ -207,7 +207,7 @@ message UltralightCAuthentication {
 }
 
 message SecretChange {
-    string secret = 1 [(nanopb).max_length = 40];
+    string secret = 1 [(nanopb).max_length = 32];
 }
 
 message SecretChangedEvent {
@@ -215,7 +215,7 @@ message SecretChangedEvent {
 }
 
 message LogMessage {
-    string source = 1 [(nanopb).max_length = 40];
+    string source = 1 [(nanopb).max_length = 1];
     enum Level {
         DEBUG = 0;
         INFO = 1;
@@ -223,5 +223,5 @@ message LogMessage {
         ERROR = 3;
     }
     Level level = 2;
-    string message = 3 [(nanopb).max_length = 40];
+    string message = 3 [(nanopb).max_length = 1];
 }
