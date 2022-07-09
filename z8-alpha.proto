@@ -24,13 +24,15 @@ message ServerMessage {
         ClearDisplayBuffer clear_display_buffer = 10;
         PrintOnDisplay print_on_display = 11;
         ClearDisplay clear_display = 12;
-
-        TokenWriteEvent token_write_event = 13;
         
-        UltralightCAuthentication ultralight_c_authentication = 14;
-        TokenAuthenticatedEvent token_authenticated_event = 15;
+        TokenAwait token_await = 13;
+        TokenReadEvent token_read_event = 14;
+        TokenWriteEvent token_write_event = 15;
+        
+        UltralightCAuthentication ultralight_c_authentication = 16;
+        TokenAuthenticatedEvent token_authenticated_event = 17;
 
-        SecretChange secret_change = 16;
+        SecretChange secret_change = 18;
     }
 }
 
@@ -154,6 +156,10 @@ message DisplayCleared {
 
 //TOKEN
 
+message TokenAwait {
+    
+}
+
 message TokenFoundEvent {
     string token = 1;
     enum TokenType {
@@ -168,29 +174,24 @@ message TokenReadEvent {
     string token = 1;
     int64 page = 2;
     bytes data = 3;
-    string barer = 4;
 }
 
 message TokenWriteEvent {
     string token = 1;
     int32 page = 2;
     bytes data = 3;
-    string barer = 4;
 }
 
 message TokenWrittenEvent {
     string token = 1;
-    string barer = 2;
 }
 
 message TokenLoseEvent {
     string token = 1;
-    string barer = 2;
 }
 
 message TokenAuthenticatedEvent {
     string token = 1;
-    string barer = 2;
 }
 
 //SPECIAL
