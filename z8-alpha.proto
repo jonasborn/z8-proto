@@ -40,31 +40,31 @@ message ServerMessage {
 message ClientMessage {
     option (nanopb_msgopt).no_unions = true;
     string id = 1 [(nanopb).max_length = 40];
-    string barer = 1 [(nanopb).max_length = 40];
-    string source = 2 [(nanopb).max_length = 40];
+    string barer = 2 [(nanopb).max_length = 40];
+    string source = 3 [(nanopb).max_length = 40];
     oneof body {
-        WelcomeMessage welcome_message = 3;
-        ShutdownMessage shutdown_message = 4;
-        PingMessage ping_message = 5;
+        WelcomeMessage welcome_message = 4;
+        ShutdownMessage shutdown_message = 5;
+        PingMessage ping_message = 6;
 
-        TimeRequest time_request = 6;
+        TimeRequest time_request = 7;
 
-        MelodyPlayed melody_played = 7;
-        MelodyStopped melody_stopped = 8;
+        MelodyPlayed melody_played = 8;
+        MelodyStopped melody_stopped = 9;
 
-        StoredInDisplayBuffer stored_in_display_buffer = 9;
-        DisplayBufferCleared display_buffer_cleared = 10;
-        PrintedOnDisplay printed_on_display = 11;
-        DisplayCleared display_cleared = 12;
+        StoredInDisplayBuffer stored_in_display_buffer = 10;
+        DisplayBufferCleared display_buffer_cleared = 11;
+        PrintedOnDisplay printed_on_display = 12;
+        DisplayCleared display_cleared = 13;
         
-        TokenFoundEvent token_found_event = 13;
-        TokenReadEvent token_read_event = 14;
-        TokenWrittenEvent token_written_event = 15;
-        TokenLoseEvent token_lose_event = 16;
-        UltralightCAuthentication ultralight_c_authentication = 17;
-        TokenAuthenticatedEvent token_authenticated_event = 18;
-        SecretChangedEvent secret_changed_event = 19;
-        LogMessage log_message = 20;
+        TokenFoundEvent token_found_event = 14;
+        TokenReadEvent token_read_event = 15;
+        TokenWrittenEvent token_written_event = 16;
+        TokenLoseEvent token_lose_event = 17;
+        UltralightCAuthentication ultralight_c_authentication = 18;
+        TokenAuthenticatedEvent token_authenticated_event = 19;
+        SecretChangedEvent secret_changed_event = 20;
+        LogMessage log_message = 21;
         
     }
 }
