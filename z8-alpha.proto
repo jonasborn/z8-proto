@@ -127,7 +127,7 @@ message StoreInDisplayBuffer {
         ALL_LINES = 2;
     }
     Animation animation = 3;
-    string line = [(nanopb).max_length = 40];
+    string line = 4 [(nanopb).max_length = 40];
     
 }
 
