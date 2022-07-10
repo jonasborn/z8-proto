@@ -120,7 +120,7 @@ message StoreInDisplayBuffer {
         APPEND = 1;
         OVERWRITE = 2;
     }
-    Operation operation = 2
+    Operation operation = 2;
     enum Animation {
         NONE = 0;
         SINGLE_LINE = 1;
