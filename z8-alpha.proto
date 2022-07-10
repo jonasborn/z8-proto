@@ -116,9 +116,19 @@ message MelodyStopped {
 message StoreInDisplayBuffer {
     fixed32 line = 1;
     enum Operation {
-        APPEND = 0;
-        OVERWRITE = 1;
+        CLEAR = 0;
+        APPEND = 1;
+        OVERWRITE = 2;
     }
+    Operation operation = 2
+    enum Animation {
+        NONE = 0;
+        SINGLE_LINE = 1;
+        ALL_LINES = 2;
+    }
+    Animation animation = 3;
+    string line = [(nanopb).max_length = 40];
+    
 }
 
 message StoredInDisplayBuffer {
