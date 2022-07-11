@@ -127,7 +127,7 @@ message StoreInDisplayBuffer {
     }
     Animation animation = 2;
     string line = 3 [(nanopb).max_length = 40];
-    fixed64 delay = 4;
+    fixed64 timeout = 4;
     
 }
 
