@@ -119,6 +119,8 @@ message StoreInDisplayBuffer {
         APPEND = 1;
         OVERWRITE = 2;
         PRINT = 3;
+        RUN = 4;
+        STOP = 5;
     }
     Operation operation = 1;
     enum Animation {
