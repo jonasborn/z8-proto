@@ -1,3 +1,6 @@
+// z8-alpha
+// Main protocol for the z8-satellites, first generation
+
 syntax = "proto3";
 
 import "nanopb.proto";
@@ -7,236 +10,273 @@ option java_outer_classname = "Z8ProtoAlpha";
 option java_multiple_files = true;
 
 message ServerMessage {
-    option (nanopb_msgopt).no_unions = true;
-    string id = 1 [(nanopb).max_length = 5];
-    string barer = 2 [(nanopb).max_length = 32];
-    string target = 3 [(nanopb).max_length = 5];
-    oneof body {
-        WelcomeMessage welcome_message = 4;
-        ShutdownMessage shutdown_message = 5;
-        PingMessage ping_message = 6;
+  option (nanopb_msgopt).no_unions = true;
+  string id = 1 [(nanopb).max_length = 5];
+  string barer = 2 [(nanopb).max_length = 32];
+  string target = 3 [(nanopb).max_length = 5];
+  oneof body {
+    WelcomeMessage welcome_message = 4;
+    TimeResponse time_response = 5;
+    PlayMelody play_melody = 6;
+    StopMelody stop_melody = 7;
+    ModifyDisplayQueue modify_display_queue = 8;
+    DisplayQueueRun display_queue_run = 9;
+    ClearDisplayQueue clear_display_queue = 10;
+    TokenAwait token_await = 11;
+    TokenRead token_read = 12;
+    TokenWrite token_write = 13;
+    TrustToken trust_token = 14;
+    UltralightCAuthentication ultralight_c_authentication = 15;
+    UltralightCSecretChange ultralight_c_secret_change = 16;
 
-        TimeResponse time_response = 7;
-
-        PlayMelody play_melody = 8;
-        StopMelody stop_melody = 9;
-
-        StoreInDisplayBuffer store_in_display_buffer = 10;
-        ClearDisplayBuffer clear_display_buffer = 11;
-        PrintOnDisplay print_on_display = 12;
-        ClearDisplay clear_display = 13;
-        
-        TokenAwait token_await = 14;
-        TokenReadEvent token_read_event = 15;
-        TokenWriteEvent token_write_event = 16;
-        
-        UltralightCAuthentication ultralight_c_authentication = 17;
-        TokenAuthenticatedEvent token_authenticated_event = 18;
-
-        SecretChange secret_change = 19;
-    }
+  }
 }
 
 message ClientMessage {
-    option (nanopb_msgopt).no_unions = true;
-    string id = 1 [(nanopb).max_length = 5];
-    string barer = 2 [(nanopb).max_length = 32];
-    string source = 3 [(nanopb).max_length = 5];
-    oneof body {
-        WelcomeMessage welcome_message = 4;
-        ShutdownMessage shutdown_message = 5;
-        PingMessage ping_message = 6;
+  option (nanopb_msgopt).no_unions = true;
+  string id = 1 [(nanopb).max_length = 5];
+  string barer = 2 [(nanopb).max_length = 32];
+  string source = 3 [(nanopb).max_length = 5];
+  oneof body {
 
-        TimeRequest time_request = 7;
-
-        MelodyPlayed melody_played = 8;
-        MelodyStopped melody_stopped = 9;
-
-        StoredInDisplayBuffer stored_in_display_buffer = 10;
-        DisplayBufferCleared display_buffer_cleared = 11;
-        PrintedOnDisplay printed_on_display = 12;
-        DisplayCleared display_cleared = 13;
-        
-        TokenFoundEvent token_found_event = 14;
-        TokenReadEvent token_read_event = 15;
-        TokenWrittenEvent token_written_event = 16;
-        TokenLoseEvent token_lose_event = 17;
-        UltralightCAuthentication ultralight_c_authentication = 18;
-        TokenAuthenticatedEvent token_authenticated_event = 19;
-        SecretChangedEvent secret_changed_event = 20;
-        LogMessage log_message = 21;
-        
-    }
+    WelcomeMessage welcome_message = 4;
+    TimeRequest time_request = 5;
+    MelodyPlayed melody_played = 6;
+    MelodyStopped melody_stopped = 7;
+    DisplayQueueModifyedEvent display_queue_modifyed_event = 8;
+    DisplayQueueStartedEvent display_queue_started_event = 9;
+    DisplayQueueFinishedEvent display_queue_finished_event = 10;
+    DisplayQueueClearedEvent display_queue_cleared_event = 11;
+    TokenFoundEvent token_found_event = 12;
+    TokenReadEvent token_read_event = 13;
+    TokenWrittenEvent token_written_event = 14;
+    TokenLoseEvent token_lose_event = 15;
+    UltralightCAuthentication ultralight_c_authentication = 16;
+    UltralightCSecretChangedEvent ultralight_c_secret_change_event = 17;
+    LogMessage log_message = 18;
+    
+  }
 }
 
-//MAIN
+// ---- ---- ---- MAIN ---- ---- ----
 
+// Server + Client
 message WelcomeMessage {
 
 }
 
-message ShutdownMessage {
+// ---- ---- ---- TIME ---- ---- ----
 
-}
-
-message PingMessage {
-
-}
-
-//TIME
-
+// Client
+// Used to get the current time
 message TimeRequest {
 
 }
 
+// Server
+// Used to answer the TimeRequest
 message TimeResponse {
-    fixed64 timestamp = 1;
+  fixed64 timestamp = 1;
 }
 
-//BEEP
+// ---- ---- ---- SOUND ---- ---- ----
+// I already taked with Martin about a more accessible interaction
+// We are currently looking for solutions involving a mp3 driven
+// playback. Work in progress.
 
+// Server
 message PlayMelody {
-    repeated int32 notes = 1;
+  repeated int32 melody = 1;
 }
 
+// Client
 message MelodyPlayed {
 
 }
 
+// Server
 message StopMelody {
 
 }
 
+// Client
 message MelodyStopped {
 
 }
 
-//DISPLAY
+// ---- ---- ---- DISPLAY ---- ---- ----
 
-message StoreInDisplayBuffer {
-    enum Operation {
-        CLEAR = 0;
-        APPEND = 1;
-        OVERWRITE = 2;
-        PRINT = 3;
-        RUN = 4;
-        STOP = 5;
-    }
-    Operation operation = 1;
-    enum Animation {
-        NONE = 0;
-        SINGLE_LINE = 1;
-        ALL_LINES = 2;
-    }
-    Animation animation = 2;
-    fixed32 line = 3;
-    string data = 4 [(nanopb).max_length = 40];
-    fixed32 position = 5;
-    fixed64 timeout = 6;
-    
-}
-
-message StoredInDisplayBuffer {
+// Server
+message ModifyDisplayQueue {
+  enum Operation {
+    CLEAR = 0;
+    APPEND = 1;
+    OVERWRITE = 2;
+    PRINT = 3;
+  }
+  Operation operation = 1; // Requred
+  enum Animation {
+    NONE = 0;
+    SINGLE_LINE = 1;
+    ALL_LINES = 2;
+  }
+  Animation animation = 2; // Ony used for operation = PRINT
+  fixed32 line = 3; // Only used for ((operation = PRINT, animation = (SINGLE_LINE | NONE)) | APPEND | OVERWRITE)
+  string data = 4 [(nanopb).max_length = 40]; // Only used for operation = (APPEND | OVERRIDE)
+  fixed32 position = 5; // Only used for operation = APPEND
+  fixed64 timeout = 6; // Requred, will be altered to nearest multible of 10 downwards
 
 }
 
-message ClearDisplayBuffer {
+// Client
+// Used to confirm a queue operation
+message DisplayQueueModifyedEvent {
+  bool success = 1;
+}
+
+// Handle the display queue
+
+// Server
+// Used to start the queue handling
+// Will store the parent messages id and reply
+// with a DisplayQueueFinished when finished
+message DisplayQueueRun {
 
 }
 
-message DisplayBufferCleared {
+// Client
+// Used to confirm the started queue
+message DisplayQueueStartedEvent {
 
 }
 
-message PrintOnDisplay {
-    enum Animation {
-        NONE = 0;
-        SINGLE_LINE = 1;
-        ALL_LINES = 2;
-    }
-    Animation animation = 1;
-    int32 line = 2;
+// Client
+// Used to notify a finished queue, parent id is
+// the id used to start the queue
+message DisplayQueueFinishedEvent {
+  bool success = 1;
 }
 
-message PrintedOnDisplay {
-
-}
-
-
-message ClearDisplay {
+// Server
+// Used to stop and clear the current display queue.
+// Parent id will be saved and returnend when operation finished.
+message ClearDisplayQueue {
 
 }
 
-message DisplayCleared {
-
+// Client
+message DisplayQueueClearedEvent {
+  bool success = 1;
 }
 
-//TOKEN
 
+// ---- ---- ---- TOKEN ---- ---- ----
+// All token messages (except the TokenAwait initial message) are requied to
+// have a valid token id. This id must be checked against the current token present on
+// client side.
+
+// Server
+// Used to actiate token await process
+// Display will not be changed, parent id is saved and used
+// when replying with TokenFoundEvent
 message TokenAwait {
-    
+
 }
 
+// Client
+// Used to inform about found token, id of TokenAwait is used
 message TokenFoundEvent {
-    string token = 1 [(nanopb).max_length = 14];
-    enum TokenType {
-        UNKNOWN = 0;
-        ULTRALIGHTC = 1;
-        CLASSIC = 2;
-    }
-    TokenType type = 2;
+  string token = 1 [(nanopb).max_length = 14];
+  enum TokenType {
+    UNKNOWN = 0;
+    ULTRALIGHTC = 1;
+    CLASSIC = 2;
+  }
+  TokenType type = 2;
 }
 
+// Server
+// Used to request a read from a token
+// Id will be safed for response with
+message TokenRead {
+  string token = 1 [(nanopb).max_length = 14];
+  int64 page = 2;
+  bytes data = 3; //TODO Add default page size
+}
+
+// Client
+// Used to response to a TokenRead
 message TokenReadEvent {
-    string token = 1 [(nanopb).max_length = 14];
-    int64 page = 2;
-    bytes data = 3;
+  string token = 1 [(nanopb).max_length = 14];
+  bool success = 2;
+  int64 page = 3;
+  bytes data = 4; //TODO Add default page size
 }
 
-message TokenWriteEvent {
-    string token = 1 [(nanopb).max_length = 14];
-    int32 page = 2;
-    bytes data = 3;
+// Server
+// Used to request a write to a token
+message TokenWrite {
+  string token = 1 [(nanopb).max_length = 14];
+  int32 page = 2;
+  bytes data = 3; //TODO Add default page size
 }
 
+// Client
+// Used to cofirm a write operation
 message TokenWrittenEvent {
-    string token = 1 [(nanopb).max_length = 14];
+  string token = 1 [(nanopb).max_length = 14];
+  bool success = 2;
 }
 
+// Client
+// Used to notify about a lost token
 message TokenLoseEvent {
-    string token = 1 [(nanopb).max_length = 14];
+  string token = 1 [(nanopb).max_length = 14];
 }
 
-message TokenAuthenticatedEvent {
-    string token = 1 [(nanopb).max_length = 14];
+// Server
+// Used to signalize the devices, that the found token
+// is valid and can be trust.
+message TrustToken {
+  string token = 1 [(nanopb).max_length = 14];
 }
 
 //SPECIAL
 
+// Server + Client
+// Used to handle the authentification
 message UltralightCAuthentication {
-    string token = 1 [(nanopb).max_length = 14];
-    int32 next_stage = 2;
-    bytes data = 3 [(nanopb).max_size = 40];
-    bytes randA = 4 [(nanopb).max_size = 40];
-    bytes data2 = 5 [(nanopb).max_size = 40];
+  string token = 1 [(nanopb).max_length = 14];
+  int32 next_stage = 2;
+  bytes data = 3 [(nanopb).max_size = 40];
+  bytes randA = 4 [(nanopb).max_size = 40];
+  bytes data2 = 5 [(nanopb).max_size = 40];
 }
 
-message SecretChange {
-    string secret = 1 [(nanopb).max_length = 32];
+// Server
+// Used to request a secret change for a Ultralight C card.
+message UltralightCSecretChange {
+  string token = 1 [(nanopb).max_length = 14];
+  string secret = 2 [(nanopb).max_length = 32];
 }
 
-message SecretChangedEvent {
-    
+// Client
+// Used to confirm a secret change
+message UltralightCSecretChangedEvent {
+  string token = 1 [(nanopb).max_length = 14];
+  bool success = 2;
 }
 
+// Client
+// Used to redirect a local log message to the server
 message LogMessage {
-    string source = 1 [(nanopb).max_length = 1];
-    enum Level {
-        DEBUG = 0;
-        INFO = 1;
-        WARN = 2;
-        ERROR = 3;
-    }
-    Level level = 2;
-    string message = 3 [(nanopb).max_length = 1];
+  string source = 1 [(nanopb).max_length = 1];
+  enum Level {
+    DEBUG = 0;
+    INFO = 1;
+    WARN = 2;
+    ERROR = 3;
+  }
+  Level level = 2;
+  string message = 3 [(nanopb).max_length = 1];
 }
