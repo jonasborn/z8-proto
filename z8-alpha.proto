@@ -56,8 +56,8 @@ message ServerMessage {
     UltralightCAuthentication ultralight_c_authentication = 15;
     UltralightCSecretChange ultralight_c_secret_change = 16;
   }
-  ServerMessageHeader server_message_header = 17;
-  ServerMessageBody server_message_body = 18;
+  ServerMessageHeader header = 17;
+  ServerMessageBody body = 18;
 }
 
 message ClientMessageHeader {
@@ -110,8 +110,8 @@ message ClientMessage {
     UltralightCSecretChangedEvent ultralight_c_secret_change_event = 17;
     LogMessage log_message = 18;
   }
-  ClientMessageHeader client_message_header = 19;
-  ClientMessageBody client_message_body = 20;
+  ClientMessageHeader header = 19;
+  ClientMessageBody body = 20;
 }
 
 // ---- ---- ---- MAIN ---- ---- ----
