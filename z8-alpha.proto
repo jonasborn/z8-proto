@@ -38,26 +38,8 @@ message ServerMessageBody {
 
 message ServerMessage {
   option (nanopb_msgopt).no_unions = true;
-  string id = 1 [(nanopb).max_length = 5];
-  string barer = 2 [(nanopb).max_length = 32];
-  string target = 3 [(nanopb).max_length = 5];
-  oneof body {
-    WelcomeMessage welcome_message = 4;
-    TimeResponse time_response = 5;
-    PlayMelody play_melody = 6;
-    StopMelody stop_melody = 7;
-    ModifyDisplayQueue modify_display_queue = 8;
-    DisplayQueueRun display_queue_run = 9;
-    ClearDisplayQueue clear_display_queue = 10;
-    TokenAwait token_await = 11;
-    TokenRead token_read = 12;
-    TokenWrite token_write = 13;
-    TrustToken trust_token = 14;
-    UltralightCAuthentication ultralight_c_authentication = 15;
-    UltralightCSecretChange ultralight_c_secret_change = 16;
-  }
-  ServerMessageHeader header = 17;
-  ServerMessageBody body = 18;
+  ServerMessageHeader header = 1;
+  ServerMessageBody body = 2;
 }
 
 message ClientMessageHeader {
@@ -91,27 +73,8 @@ message ClientMessageBody {
 
 message ClientMessage {
   option (nanopb_msgopt).no_unions = true;
-  string id = 1 [(nanopb).max_length = 5];
-  string source = 3 [(nanopb).max_length = 5];
-  oneof body {
-    WelcomeMessage welcome_message = 4;
-    TimeRequest time_request = 5;
-    MelodyPlayed melody_played = 6;
-    MelodyStopped melody_stopped = 7;
-    DisplayQueueModifyedEvent display_queue_modifyed_event = 8;
-    DisplayQueueStartedEvent display_queue_started_event = 9;
-    DisplayQueueFinishedEvent display_queue_finished_event = 10;
-    DisplayQueueClearedEvent display_queue_cleared_event = 11;
-    TokenFoundEvent token_found_event = 12;
-    TokenReadEvent token_read_event = 13;
-    TokenWrittenEvent token_written_event = 14;
-    TokenLoseEvent token_lose_event = 15;
-    UltralightCAuthentication ultralight_c_authentication = 16;
-    UltralightCSecretChangedEvent ultralight_c_secret_change_event = 17;
-    LogMessage log_message = 18;
-  }
-  ClientMessageHeader header = 19;
-  ClientMessageBody body = 20;
+  ClientMessageHeader header = 1;
+  ClientMessageBody body = 2;
 }
 
 // ---- ---- ---- MAIN ---- ---- ----
