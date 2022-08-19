@@ -16,6 +16,7 @@ message ServerMessageHeader {
 message ServerMessageBody {
   option (nanopb_msgopt).no_unions = true;
   string id = 1 [(nanopb).max_length = 5];
+  string barer = 2 [(nanopb).max_length = 32];
   string target = 3 [(nanopb).max_length = 5];
   oneof message {
     WelcomeMessage welcome_message = 4;
@@ -66,6 +67,7 @@ message ClientMessageHeader {
 message ClientMessageBody {
   option (nanopb_msgopt).no_unions = true;
   string id = 1 [(nanopb).max_length = 5];
+  string barer = 2 [(nanopb).max_length = 32];
   string source = 3 [(nanopb).max_length = 5];
   oneof body {
     WelcomeMessage welcome_message = 4;
